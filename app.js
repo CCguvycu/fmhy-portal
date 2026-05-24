@@ -518,7 +518,7 @@ var welcomeBtn      = document.getElementById('welcomeBtn');
 function closeWelcome() {
   welcomeBackdrop.classList.remove('open');
   welcomeBackdrop.setAttribute('aria-hidden', 'true');
-  localStorage.setItem('fmhy-welcomed', '1');
+  localStorage.setItem('fmhy-welcomed-v2', '1');
 }
 
 welcomeBtn.addEventListener('click', closeWelcome);
@@ -531,7 +531,7 @@ renderCategories();
 renderEco();
 
 // Show welcome if first visit (delay slightly so page renders first)
-if (!localStorage.getItem('fmhy-welcomed')) {
+if (!localStorage.getItem('fmhy-welcomed-v2')) {
   setTimeout(function() {
     welcomeBackdrop.classList.add('open');
     welcomeBackdrop.removeAttribute('aria-hidden');
