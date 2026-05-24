@@ -494,7 +494,9 @@ searchInput.addEventListener('input', function() {
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    if (backdrop.classList.contains('open')) {
+    if (welcomeBackdrop.classList.contains('open')) {
+      closeWelcome();
+    } else if (backdrop.classList.contains('open')) {
       closeModal();
     } else {
       searchInput.blur();
@@ -509,6 +511,29 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// ── Welcome Popup ──
+var welcomeBackdrop = document.getElementById('welcomeBackdrop');
+var welcomeBtn      = document.getElementById('welcomeBtn');
+
+function closeWelcome() {
+  welcomeBackdrop.classList.remove('open');
+  welcomeBackdrop.setAttribute('aria-hidden', 'true');
+  localStorage.setItem('fmhy-welcomed', '1');
+}
+
+welcomeBtn.addEventListener('click', closeWelcome);
+welcomeBackdrop.addEventListener('click', function(e) {
+  if (e.target === welcomeBackdrop) closeWelcome();
+});
+
 // ── Init ──
 renderCategories();
 renderEco();
+
+// Show welcome if first visit (delay slightly so page renders first)
+if (!localStorage.getItem('fmhy-welcomed')) {
+  setTimeout(function() {
+    welcomeBackdrop.classList.add('open');
+    welcomeBackdrop.removeAttribute('aria-hidden');
+  }, 300);
+}
