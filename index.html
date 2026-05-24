@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FMHY Portal — Free Media Heck Yeah</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ── Header ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-block">
+        <span class="logo-glyph">⟐</span>
+        <div>
+          <h1 class="site-title">FMHY Portal</h1>
+          <p class="site-sub">Free Media Heck Yeah — your gateway to free everything</p>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="https://fmhy.net/" target="_blank" rel="noopener" class="nav-link">FMHY Wiki</a>
+        <a href="https://fmhy.net/beginners-guide" target="_blank" rel="noopener" class="nav-link">Beginners</a>
+        <a href="https://searx.fmhy.net/" target="_blank" rel="noopener" class="nav-link">Search</a>
+        <a href="https://fmhy.net/other/FAQ" target="_blank" rel="noopener" class="nav-link">FAQ</a>
+        <a href="https://reddit.com/r/FREEMEDIAHECKYEAH" target="_blank" rel="noopener" class="nav-btn">Community</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Open Source · Community Maintained · Always Free</div>
+      <h2 class="hero-headline">The Internet's Largest<br /><span class="accent">Free Resource Index</span></h2>
+      <p class="hero-desc">
+        FMHY (Free Media Heck Yeah) is a community-maintained wiki indexing thousands of free resources
+        across streaming, gaming, reading, privacy, AI, education, and more.
+      </p>
+      <div class="hero-actions">
+        <a href="https://fmhy.net/" target="_blank" rel="noopener" class="btn btn-primary">Browse the Wiki</a>
+        <a href="https://fmhy.net/beginners-guide" target="_blank" rel="noopener" class="btn btn-ghost">Beginners Guide</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">12+</span><span class="stat-label">Categories</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">1000s</span><span class="stat-label">Free Resources</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Free Forever</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Search bar ── -->
+  <section class="search-section">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" class="search-input" type="text" placeholder="Filter categories…" autocomplete="off" />
+      <kbd class="search-kbd">/</kbd>
+    </div>
+  </section>
+
+  <!-- ── Category Grid ── -->
+  <main class="main-content">
+    <div class="section-label">▸ Browse Categories</div>
+    <div class="card-grid" id="cardGrid"></div>
+
+    <!-- ── Ecosystem Tools ── -->
+    <div class="section-label" style="margin-top:3rem;">▸ Ecosystem Tools</div>
+    <div class="eco-grid" id="ecoGrid"></div>
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="logo-glyph small">⟐</span>
+        <span>FMHY Portal — built using <a href="https://fmhy.net/" target="_blank" rel="noopener">fmhy.net</a> resources only</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/fmhy/FMHY-SafeGuard" target="_blank" rel="noopener">SafeGuard</a>
+        <a href="https://github.com/fmhy/bookmarks" target="_blank" rel="noopener">Bookmarks</a>
+        <a href="https://fmhy.net/posts/changelog-sites" target="_blank" rel="noopener">Changelog</a>
+        <a href="https://fmhy.net/other/contributing" target="_blank" rel="noopener">Contribute</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Category Modal ── -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div class="modal-title-block">
+          <span class="modal-icon" id="modalIcon"></span>
+          <span class="modal-title" id="modalTitle"></span>
+        </div>
+        <div class="modal-actions">
+          <a class="modal-open-btn" id="modalOpenBtn" target="_blank" rel="noopener" title="Open in new tab">↗ Open in tab</a>
+          <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+
+        <!-- ── Left: category markdown ── -->
+        <div class="modal-left">
+          <div class="modal-loader" id="modalLoader">
+            <div class="loader-spinner"></div>
+            <span>Fetching content…</span>
+          </div>
+          <div class="modal-error" id="modalError">
+            <span class="error-icon">⚠</span>
+            <p id="modalErrorMsg">Could not load content.</p>
+            <a id="modalErrorLink" class="btn btn-ghost" target="_blank" rel="noopener">Open on FMHY →</a>
+          </div>
+          <div class="modal-content" id="modalContent"></div>
+        </div>
+
+        <!-- ── Right: site viewer ── -->
+        <div class="modal-right" id="modalRight">
+          <div class="site-bar">
+            <div class="site-url-pill" id="siteUrlPill">No site selected</div>
+            <a class="site-ext-btn" id="siteExtBtn" target="_blank" rel="noopener" title="Open in new tab" style="visibility:hidden">↗</a>
+          </div>
+          <div class="site-placeholder" id="sitePlaceholder">
+            <span class="placeholder-icon">🌐</span>
+            <p>Click any link on the left<br/>to open it here</p>
+          </div>
+          <div class="site-blocked-full" id="siteBlockedFull">
+            <span class="blocked-icon">🚫</span>
+            <p>This site blocks embedded viewing. Open it in a new tab instead.</p>
+            <a id="siteBlockedFullLink" class="btn-open" target="_blank" rel="noopener">↗ Open site</a>
+          </div>
+          <iframe
+            id="siteFrame"
+            class="site-iframe"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+            title="Site viewer"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
